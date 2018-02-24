@@ -1,10 +1,12 @@
 package ed.mobileassignment.com;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.util.Log;
+import android.view.View;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
 
         cvMap.setCardBackgroundColor(0xffffab41);
         cvList.setCardBackgroundColor(0xFF23334d);
+
+        cvMap.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                OpenMap();
+            }
+        });
     }
 
     //Sblocca i 2 tasti una volta elaborata la lista dei POI
@@ -112,10 +120,11 @@ public class MainActivity extends AppCompatActivity {
                             pb.businessHours(businessHours);
                             lstPOI.add(pb.build());
                         }
-                        // Se ho ottenuto un risultato sblocco l'UI.
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+                    // Se ho ottenuto un risultato sblocco l'UI.
                     DownloadFinish(lstPOI.size() > 0);
                 }
             }
@@ -132,4 +141,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void OpenMap() {
+        Intent myIntent = new Intent(this, MapsActivity.class);
+        startActivity(myIntent);
+    }
 }

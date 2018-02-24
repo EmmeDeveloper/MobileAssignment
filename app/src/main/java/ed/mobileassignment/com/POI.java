@@ -16,7 +16,7 @@ public class POI {
 
     public POI (String name, String address,Double lat, Double lng, String imagePath, HashMap<String, String[]> businessHours) {
         this.address = address;
-        this.lat = lng;
+        this.lat = lat;
         this.lng = lng;
         this.imagePath = imagePath;
         this.name = name;
@@ -31,8 +31,8 @@ public class POI {
         return lng;
     }
 
-    public void Double(Double lng) {
-        this.lng = lng;
+    public Double getLat() {
+        return lat;
     }
 
     public String getImagePath() {
