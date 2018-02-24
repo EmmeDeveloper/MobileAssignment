@@ -14,10 +14,11 @@ public class POIBuilder {
     private Double lng;
     private String imagePath;
     private String name;
+    private String description;
     private HashMap<String, String[]> businessHours; //Day, Hours
 
     public POI build() {
-        return new POI(name, address, lat ,lng, imagePath,  businessHours);
+        return new POI(name, address, lat ,lng, imagePath, description, businessHours);
     }
 
     public  POIBuilder name (String name) {
@@ -33,6 +34,11 @@ public class POIBuilder {
     }
     public  POIBuilder lat (Double lat) {
         this.lat = lat;
+        return this;
+    }
+
+    public POIBuilder description (String desc) {
+        this.description = desc;
         return this;
     }
 
@@ -54,4 +60,5 @@ public class POIBuilder {
         this.businessHours = businessHours;
         return this;
     }
+
 }

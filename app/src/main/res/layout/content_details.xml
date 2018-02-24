@@ -7,11 +7,48 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="ed.mobileassignment.com.DetailsActivity"
     tools:showIn="@layout/activity_details">
-
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        android:orientation="vertical"
+        android:layout_height="wrap_content" >
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:id="@+id/txtName"
+            android:textColor="#ff000000"
+            android:textSize="18sp"
+             />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:background="@color/colorDivisor"
+            android:textColor="#ff000000"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:id="@+id/txtDescription"
+
+            android:textColor="#ff000000"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:background="@color/colorDivisor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:id="@+id/txtBusiness"
+            android:textColor="#ff000000"
+            android:textSize="16sp"/>
+    </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

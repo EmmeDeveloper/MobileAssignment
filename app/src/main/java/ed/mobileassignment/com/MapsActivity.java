@@ -1,5 +1,6 @@
 package ed.mobileassignment.com;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -39,6 +42,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Inizializzo al di fuori, così da zoomare sull'ultimo marker caricato
         LatLng coord = new LatLng(0,0);
+        Integer lvlZoom = 8;
+
         for (Object obj: lstPOI) {
             POI poi = (POI) obj;
             coord = new LatLng(poi.getLat(), poi.getLng());
@@ -46,7 +51,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Marker m = mMap.addMarker(new MarkerOptions().position(coord).title(poi.getName()));
             m.setTag(poi);
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coord,mMap.getMaxZoomLevel()-8));
+        POI poi = Parcels.unwrap(getIntent().getParcelableExtra("POI"));
+        if (poi != null) {
+            coord = new LatLng(poi.getLat(),poi.getLng());
+            lvlZoom = 4; //Avvicino ulteriolmente la camera per zoomare sul POI passato dall'activity detail
+        }
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coord,mMap.getMaxZoomLevel()-lvlZoom));
 
         /**
          * Possiamo applicare il click principalmente in 2 modi, sul marker o sul titolo. La scelta riguarda prettamente la gestione dell'UX.
@@ -54,7 +64,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          * Per risolvere il problema, memorizzerò in una variabile lastMarkerClicked l'ultimo marker cliccato, in modo da distinguere il click per reperire informazioni
          * (far visualizzare il nome) e il click per entrare nel dettaglio del marker
          *
-
          mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
         @Override
         public void onInfoWindowClick(Marker arg0) {
@@ -67,8 +76,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public boolean onMarkerClick(Marker marker) {
                 if (lastMarkerClicked != null && marker.equals(lastMarkerClicked)) {
+
+                    // Preleva il POI dal tag del marker
                     POI poi = (POI) marker.getTag();
-                    Log.e("poii",poi.getName());
+
+                    // Lo manda all'altra activity. **Il codice è una ripetizione di un altra activity, sarebbe opportuno fare un refactor e implementare il metodo globale parametrizzato
+                    Intent myIntent = new Intent(MapsActivity.this, DetailsActivity.class);
+                    myIntent.putExtra("POI",Parcels.wrap(poi));
+                    startActivity(myIntent);
                 }
                 lastMarkerClicked = marker;
                 return false;

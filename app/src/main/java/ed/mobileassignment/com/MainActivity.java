@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                             pb.lng(jPOI.getDouble("lng"));
                             pb.address(jPOI.getString("address"));
                             pb.imagePath(jPOI.getString("imagePath"));
+                            pb.description(jPOI.getString("description"));
 
                             HashMap<String, String[]> businessHours= new HashMap<String, String []>();
                             JSONArray jHour = jPOI.getJSONArray("businessHours");
@@ -142,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void OpenMap() {
-        Intent myIntent = new Intent(this, MapsActivity.class);
+        Intent myIntent = new Intent(MainActivity.this, MapsActivity.class);
         startActivity(myIntent);
     }
 }
