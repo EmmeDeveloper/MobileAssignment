@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,14 +22,15 @@ import java.util.List;
  */
 
 public class ListPoiAdapter extends RecyclerView.Adapter<ListPoiAdapter.ViewHolder> {
-    private GlobalVar Var;
     private List lstPOI;
     private Context context;
 
     public ListPoiAdapter(Context mcontext) {
         this.context = mcontext;
-        Var=((GlobalVar)mcontext);
-        lstPOI = Var.getListPOI();
+
+        // Uso addAll per non creare un riferimento alla lista originale. In questo modo posso filtrare i valori nella searchbox della lista
+        lstPOI = new ArrayList();
+        lstPOI.addAll(((GlobalVar)mcontext).getListPOI());
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -76,5 +78,9 @@ public class ListPoiAdapter extends RecyclerView.Adapter<ListPoiAdapter.ViewHold
         return lstPOI.size();
     }
 
+    public void setSearchResult(List lstPOIfiltered) {
+        lstPOI = lstPOIfiltered;
+        notifyDataSetChanged();
+    }
 
 }

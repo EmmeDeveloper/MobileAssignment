@@ -84,16 +84,16 @@ public class DetailsActivity extends AppCompatActivity {
         txtDesc.setText(poi.getDescription());
 
         //Set turni
-        for(HashMap.Entry<String, String[]> entry : poi.businessHours.entrySet()) {
-
+        String[] days = new String[] {"sun", "mon", "tue", "wed", "thu", "fri", "sat"};
+        for(String day : days) {
             //Ottiene i giorni
-            Spannable day = new SpannableString(entry.getKey());
-            day.setSpan(new StyleSpan(Typeface.BOLD),0,day.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            sp.append(day);
+            Spannable spDay = new SpannableString(day);
+            spDay.setSpan(new StyleSpan(Typeface.BOLD),0,day.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            sp.append(spDay);
             sp.append("\n");
 
             //Imposta l'orario giornaliero
-            String[] turni = entry.getValue();
+            String[] turni = poi.businessHours.get(day);
             Spannable spTurni = new SpannableString(turni[0] + "\n" + turni[1]);
             spTurni.setSpan(new StyleSpan(Typeface.NORMAL),0,spTurni.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             spTurni.setSpan(new RelativeSizeSpan(0.8f), 0,spTurni.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
