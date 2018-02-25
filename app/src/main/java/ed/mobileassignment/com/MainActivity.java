@@ -58,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
                 OpenMap();
             }
         });
+
+        cvList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OpenList();
+            }
+        });
     }
 
     //Sblocca i 2 tasti una volta elaborata la lista dei POI
@@ -144,6 +151,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void OpenMap() {
         Intent myIntent = new Intent(MainActivity.this, MapsActivity.class);
+        startActivity(myIntent);
+    }
+
+    private void OpenList() {
+        Intent myIntent = new Intent(MainActivity.this, ListActivity.class);
         startActivity(myIntent);
     }
 }

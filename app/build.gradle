@@ -33,11 +33,13 @@ dependencies {
     annotationProcessor 'org.parceler:parceler:1.1.9'
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+    implementation 'com.android.support:recyclerview-v7:27.0.2'
 }
 
 repositories {
     mavenCentral()
     google()
 }
+
 
 
