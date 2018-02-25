@@ -7,10 +7,10 @@
     android:id="@+id/card_view"
     card_view:cardCornerRadius="4dip"
     card_view:cardElevation="3dp"
-    android:layout_marginBottom="12dp"
+    android:layout_marginBottom="8dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:layout_marginTop="16dp"
+    android:layout_marginTop="8dp"
     card_view:cardBackgroundColor="#313131">
 
     <RelativeLayout

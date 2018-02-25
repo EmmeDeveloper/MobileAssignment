@@ -28,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
     CardView cvList;
     GlobalVar Var;
     ProgressDialog progWaitPOI;
-
+    static Boolean firstTime = true;
+    // Si richiede di scaricare il json ad ogni avvio dell'app. Utilizzo quindi una variabile firsTime per verificare se l'evento onCreate viene chiamato al
+    // primo avvio, o se è chiamato dalla ricostruzione dell'activity (dovuta alla rotazione dello schermo)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +41,20 @@ public class MainActivity extends AppCompatActivity {
 
         //Setta il layout dell'activity main
         SetUI();
-        progWaitPOI = ProgressDialog.show(this, "Updating data",
-                "Updating data. Please wait", true);
-        UpdateListPoi();
-        UpdateUI(false);
+        if (firstTime) {
+            progWaitPOI = ProgressDialog.show(this, "Updating data",
+                    "Updating data. Please wait", true);
+            UpdateListPoi();
+            UpdateUI(false);
+            firstTime = false;
+        }
+
 
     }
 
     private void SetUI() {
         cvMap = findViewById(R.id.cvMap);
         cvList = findViewById(R.id.cvList);
-
-        cvMap.setCardBackgroundColor(0xffffab41);
-        cvList.setCardBackgroundColor(0xFF23334d);
 
         cvMap.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
                 } else {
                     List lstPOI = Var.getListPOI();
+                    lstPOI.clear();
 
                     //Estraggo i dati dal json {/res: /data:}
                     try {
